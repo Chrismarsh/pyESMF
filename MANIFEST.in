@@ -1,0 +1,6 @@
+graft src
+
+include CMakeLists.txt
+include conanfile.py
+include pyproject.toml
+include setup.py
