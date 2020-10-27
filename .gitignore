@@ -1,2 +1,4 @@
 *.pyc
 MANIFEST
+8.0.1/*
+src/
