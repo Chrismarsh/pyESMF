@@ -10,6 +10,8 @@ import os
 import shutil
 import re
 
+ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
+
 # Get package structure
 def _get_dot_(path, root='src'):
     ret = []
@@ -71,7 +73,7 @@ try:
 except SKBuildError:
     setup_requires.append('cmake')
 
-src_path = os.path.join('src', 'ESMF')
+src_path = 'ESMF' #os.path.join('src', 'ESMF')
 packages = []
 for dirpath, dirnames, filenames in os.walk(src_path):
     if '__init__.py' in filenames:
@@ -79,11 +81,10 @@ for dirpath, dirnames, filenames in os.walk(src_path):
         packages.append(package)
 
 setup(name='pyESMF',
-      version='8.1.0',
+      version=ESMF_VERSION,
       description='Python bindings for ESMF',
       long_description="""
-      A virtual environment and pip install friendly ESMF python binding for
-      http://earthsystemcog.org/projects/esmpy/
+      This is an unofficial packaging of the ESMF Python interface that is compaitible with pip and with virtual environments.
       """,
       author='Chris Marsh',
       author_email='chris.marsh@usask.ca',

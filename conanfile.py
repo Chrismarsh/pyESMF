@@ -15,38 +15,9 @@ class pyESMF(ConanFile):
     description = "pyeSMF"
     generators = "cmake_find_package"
 
-    # options = {"verbose_cmake":[True,False], "build_tests":[True,False] }
-
-    # default_options = {"gperftools:heapprof":True,
-    #                    "verbose_cmake":False,
-    #                    "build_tests":True}
-
-
-    # def source(self):
-    #     git = tools.Git()
-    #     git.clone("https://github.com/Chrismarsh/mesher.git",branch=branch)
-
 
     def requirements(self):
         self.requires( "esmf/8.1.0@CHM/stable" )
-
-      
-
-    # def _configure_cmake(self):
-    #     cmake = CMake(self)
-
-    #     cmake.configure(source_folder=self.source_folder)
-
-    #     return cmake
-
-    # def build(self):
-    #     cmake = self._configure_cmake()
-    #     cmake.build()
-    #     cmake.test(target="check")
-
-    # def package(self):
-    #     cmake = self._configure_cmake()
-    #     cmake.install()
 
 
     def imports(self):
