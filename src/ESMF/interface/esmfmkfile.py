@@ -1,0 +1,1 @@
+ESMFMKFILE = "/Users/chris/Documents/science/code/esmf/install/lib/libO/Darwin.gfortran.64.mpiuni.default/esmf.mk"
