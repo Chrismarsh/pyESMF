@@ -52,5 +52,3 @@ script:
 deploy:
   provider: script
   script: cd .. && pwd && ls -la && bash ./.travis/deploy.sh
-  on:
-    tags: true
