@@ -51,4 +51,4 @@ script:
   - pip install .
 deploy:
   provider: script
-  script: cd .. && cd .. && pwd && ls -la && bash ./.travis/deploy.sh
+  script: cd .. && pwd && ls -la && bash ./.travis/deploy.sh
