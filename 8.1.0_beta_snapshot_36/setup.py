@@ -13,6 +13,19 @@ import re
 
 ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
+pip_esmfpy_version = ESMF_VERSION
+
+
+if 'beta' in ESMF_VERSION:
+  # this is a beta snapshop, normalize the name for pip deployed as per PEP440 
+  # https://www.python.org/dev/peps/pep-0440/#pre-release-separators
+
+  #suppose we have 8.1.0_beta_snapshot_36'
+  beta_version = ESMF_VERSION[ESMF_VERSION.rfind('_')+1:]  #get the beta number, eg 36
+  rel_ver = ESMF_VERSION[:ESMF_VERSION.find('_')]  # get the primary release version eg 8.0.1
+
+  pip_esmfpy_version = f'{rel_ver}b{beta_version}'
+
 
 class install(Install):
   def run(self):
@@ -66,7 +79,7 @@ except SKBuildError:
 
 
 setup(name='pyESMF',
-      version=ESMF_VERSION,
+      version=pip_esmfpy_version,
       description='Python bindings for ESMF',
       long_description="""
       This is an unofficial packaging of the ESMF Python interface that is compaitible with pip and with virtual environments.

@@ -15,6 +15,7 @@ ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
 pip_esmfpy_version = ESMF_VERSION
 
+
 if 'beta' in ESMF_VERSION:
   # this is a beta snapshop, normalize the name for pip deployed as per PEP440 
   # https://www.python.org/dev/peps/pep-0440/#pre-release-separators
@@ -24,6 +25,7 @@ if 'beta' in ESMF_VERSION:
   rel_ver = ESMF_VERSION[:ESMF_VERSION.find('_')]  # get the primary release version eg 8.0.1
 
   pip_esmfpy_version = f'{rel_ver}b{beta_version}'
+
 
 class install(Install):
   def run(self):
