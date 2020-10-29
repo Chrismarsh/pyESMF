@@ -5,6 +5,7 @@ from skbuild.cmaker import get_cmake_version
 from packaging.version import LegacyVersion
 
 from setuptools.command.install import install as Install
+from setuptools import find_packages
 
 import os
 import shutil
@@ -12,22 +13,10 @@ import re
 
 ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
-# Get package structure
-def _get_dot_(path, root='src'):
-    ret = []
-    path_parse = path
-    while True:
-        path_parse, tail = os.path.split(path_parse)
-        if tail == root:
-            break
-        else:
-            ret.append(tail)
-    ret.reverse()
-    return '.'.join(ret)
 
 class install(Install):
   def run(self):
-    
+
     #This needs to happen before we call install so we can patch the file before it's copied out. 
     #Doing it with the install libbase after self.install() doesn't work for some reason. I'm guessing a strange conan interaction w/ cmake install
     root = skbuild.constants.CMAKE_INSTALL_DIR()
@@ -35,6 +24,7 @@ class install(Install):
     gen_path = os.listdir(root+'/esmf/lib/libO')[0]
     mkfile = root+'/esmf/lib/libO/'+gen_path+'/esmf.mk'
 
+    
     with open(mkfile,'r') as infile:
       with open(mkfile+'.tmp','w') as outfile:
         content = infile.read()
@@ -73,12 +63,7 @@ try:
 except SKBuildError:
     setup_requires.append('cmake')
 
-src_path = 'ESMF' #os.path.join('src', 'ESMF')
-packages = []
-for dirpath, dirnames, filenames in os.walk(src_path):
-    if '__init__.py' in filenames:
-        package = _get_dot_(dirpath)
-        packages.append(package)
+
 
 setup(name='pyESMF',
       version=ESMF_VERSION,
@@ -89,14 +74,14 @@ setup(name='pyESMF',
       author='Chris Marsh',
       author_email='chris.marsh@usask.ca',
       url="https://github.com/Chrismarsh/pyESMF",
-
+      cmake_args=['-DESMF_VERSION:STRING='+ESMF_VERSION],
       install_requires=['numpy'],
       setup_requires=setup_requires,
-      packages=packages,
-      package_dir={'': 'src'},
+      packages=find_packages(),
+
       python_requires='>=3.6',
       cmdclass={'install':install,
-      'uninstall': uninstall}
+          'uninstall': uninstall}
      )
 
 

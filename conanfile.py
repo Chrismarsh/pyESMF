@@ -8,18 +8,19 @@ class pyESMF(ConanFile):
     generators = "cmake" 
 
     name = "pyESMF"
-    version = "8.1.0"
+    # version = "8.1.0"
     license = ""
     author = "Chris Marsh"
     url = "https://github.com/Chrismarsh/pyESMF"
-    description = "pyeSMF"
+    description = "pyESMF"
     generators = "cmake_find_package"
+
+    options = {"esmf_version":"ANY"}
 
 
     def requirements(self):
-        self.requires( "esmf/8.1.0@CHM/stable" )
+        self.requires(f"esmf/{self.options.esmf_version}@CHM/stable" )
 
 
     def imports(self):
-        self.copy("*",src="",dst="", folder=True)  # From bin to bin
-        # self.copy("*.dylib*", dst="lib", src="lib")  # From lib to bin
+        self.copy("*",src="",dst="", folder=True)

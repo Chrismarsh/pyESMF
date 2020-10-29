@@ -1,4 +1,4 @@
-graft src
+graft ESMF
 
 include CMakeLists.txt
 include conanfile.py

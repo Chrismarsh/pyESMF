@@ -20,6 +20,9 @@ rm -rf tmp
 
 
 echo ${ESMF_VERSION} > ESMF_VERSION
-ln -s ../setup.py .
-ln -s ../MANIFEST.in .
+cp ../setup.py .
+cp ../MANIFEST.in .
+cp ../pyproject.toml .
+cp ../CMakeLists.txt .
+cp ../conanfile.py .
 # ln -s ../README.rst ${ESMF_VERSION}/
