@@ -43,10 +43,11 @@ before_install:
   - ./.travis/install.sh
   - git clone https://github.com/Chrismarsh/pyESMF.git
   - (cd pyESMF && git checkout $TRAVIS_BRANCH)
-install:
+script:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then eval "$(pyenv init -)"; pyenv activate esmf         ; fi
   - pip install --upgrade pip
   - cd $ESMF
+  - ls -la
   - pip install .
 deploy:
   provider: script
