@@ -14,7 +14,7 @@ import re
 ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
 pkg_version = "1" # pyESMF sub-version
-pip_esmfpy_version = ESMF_VERSION+"."+pkg_version
+pip_esmfpy_version = ESMF_VERSION
 
 
 if 'beta' in ESMF_VERSION:
@@ -22,11 +22,12 @@ if 'beta' in ESMF_VERSION:
   # https://www.python.org/dev/peps/pep-0440/#pre-release-separators
 
   #suppose we have 8.1.0_beta_snapshot_36'
-  beta_version = pip_esmfpy_version[pip_esmfpy_version.rfind('_')+1:]  #get the beta number, eg 36
-  rel_ver = pip_esmfpy_version[:pip_esmfpy_version.find('_')]  # get the primary release version eg 8.0.1
+  beta_version = ESMF_VERSION[ESMF_VERSION.rfind('_')+1:]  #get the beta number, eg 36
+  rel_ver = ESMF_VERSION[:ESMF_VERSION.find('_')]  # get the primary release version eg 8.0.1
 
-  pip_esmfpy_version = f'{rel_ver}b{beta_version}'
-
+  pip_esmfpy_version = f'{rel_ver}.{pkg_version}b{beta_version}'
+else:
+  pip_esmfpy_version = f'{ESMF_VERSION}.{pkg_version}'
 
 class install(Install):
   def run(self):
