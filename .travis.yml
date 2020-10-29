@@ -14,35 +14,29 @@ matrix:
       python: "3.6"
       env: 
         - ESMF="8.1.0_beta_snapshot_36"
-        - ESMF="8.0.1"
     - <<: *linux
       python: "3.7"
       env: 
         - ESMF="8.1.0_beta_snapshot_36"
-        - ESMF="8.0.1"
     - <<: *linux
       python: "3.8"
       env: 
         - ESMF="8.1.0_beta_snapshot_36"
-        - ESMF="8.0.1"
     - <<: *osx
       osx_image: xcode11.3
       env: 
         - pyv="3.6.10"
         - ESMF="8.1.0_beta_snapshot_36"
-        - ESMF="8.0.1"
     - <<: *osx
       osx_image: xcode11.3
       env: 
         - pyv="3.7.6"
         - ESMF="8.1.0_beta_snapshot_36"
-        - ESMF="8.0.1"
     - <<: *osx
       osx_image: xcode11.3
       env: 
         - pyv="3.8.2"
         - ESMF="8.1.0_beta_snapshot_36"
-        - ESMF="8.0.1"
 
 before_install:
   - chmod +x .travis/install.sh
