@@ -29,6 +29,13 @@ if 'beta' in ESMF_VERSION:
 else:
   pip_esmfpy_version = f'{ESMF_VERSION}.{pkg_version}'
 
+
+force_build = os.environ.get( FORCE_BUILD, None )
+
+build_opt='-DFORCE_BUILD:BOOL=OFF'
+if force_build:
+  build_opt = '-DFORCE_BUILD:BOOL=ON'
+
 class install(Install):
   def run(self):
 
@@ -89,7 +96,7 @@ setup(name='pyESMF',
       author='Chris Marsh',
       author_email='chris.marsh@usask.ca',
       url="https://github.com/Chrismarsh/pyESMF",
-      cmake_args=['-DESMF_VERSION:STRING='+ESMF_VERSION],
+      cmake_args=['-DESMF_VERSION:STRING='+ESMF_VERSION,build_opt],
       install_requires=['numpy'],
       setup_requires=setup_requires,
       packages=find_packages(),

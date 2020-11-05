@@ -22,6 +22,14 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}
     message(STATUS "Detected clang compiler, setting compiler.libcxx=${CONAN_LIB_STD}")
 endif ()
 
+option(FORCE_BUILD "Build ESMF from source" OFF)
+set(BUILD_POLICY "missing")
+
+if(FORCE_BUILD)
+    set(BUILD_POLICY "all")
+endif()
+
+
 conan_add_remote(NAME CHM
         URL https://api.bintray.com/conan/chrismarsh/CHM
         )
@@ -33,7 +41,7 @@ conan_cmake_run(CONANFILE conanfile.py
                 CMAKE_TARGETS
                 KEEP_RPATHS
                 NO_OUTPUT_DIRS
-                BUILD missing)
+                BUILD ${BUILD_POLICY})
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
