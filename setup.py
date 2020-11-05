@@ -30,7 +30,7 @@ else:
   pip_esmfpy_version = f'{ESMF_VERSION}.{pkg_version}'
 
 
-force_build = os.environ.get( FORCE_BUILD, None )
+force_build = os.environ.get( 'FORCE_BUILD', None )
 
 build_opt='-DFORCE_BUILD:BOOL=OFF'
 if force_build:
