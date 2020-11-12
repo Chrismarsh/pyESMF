@@ -26,6 +26,7 @@ option(FORCE_BUILD "Build ESMF from source" OFF)
 set(BUILD_POLICY "missing")
 
 if(FORCE_BUILD)
+    message(STATUS "Building ESMF from source...")
     set(BUILD_POLICY "all")
 endif()
 
@@ -41,7 +42,7 @@ conan_cmake_run(CONANFILE conanfile.py
                 CMAKE_TARGETS
                 KEEP_RPATHS
                 NO_OUTPUT_DIRS
-                BUILD ${BUILD_POLICY})
+                BUILD "${BUILD_POLICY}")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
