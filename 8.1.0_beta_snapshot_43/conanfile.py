@@ -8,7 +8,6 @@ class pyESMF(ConanFile):
     generators = "cmake" 
 
     name = "pyESMF"
-    # version = "8.1.0"
     license = ""
     author = "Chris Marsh"
     url = "https://github.com/Chrismarsh/pyESMF"

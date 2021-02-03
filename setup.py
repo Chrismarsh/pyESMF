@@ -13,7 +13,7 @@ import re
 
 ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
-pkg_version = "4" # pyESMF sub-version
+pkg_version = "5" # pyESMF sub-version
 pip_esmfpy_version = ESMF_VERSION
 CONAN_ESMF_VERSION = ESMF_VERSION
 
