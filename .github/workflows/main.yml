@@ -95,4 +95,5 @@ jobs:
                 cd -
               done <VERSIONS
         env:
-          CONAN_CURRENT_PAGE: ${{matrix.cfg.compiler}}
+          TWINE_PASSWORD: ${{secrets.TWINE_PASSWORD}}
+          TWINE_USERNAME: ${{secrets.TWINE_USERNAME}}
