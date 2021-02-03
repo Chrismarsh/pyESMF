@@ -81,22 +81,18 @@ jobs:
  
       - name: Deploy
         run: |
-          while read ESMF_VERSION; do
-            echo "Processing ${ESMF_VERSION} ..."
-            cd "$ESMF_VERSION"
+              while read ESMF_VERSION; do
+                echo "Processing ${ESMF_VERSION} ..."
+                cd "$ESMF_VERSION"
 
-            if [ "$RUNNER_OS" = "macOS" ]; then
-              python setup.py sdist bdist_wheel
-            else
-              python setup.py sdist #no binary wheels on linux at the moment as we link against non PEP0513 .so
-              #https://www.python.org/dev/peps/pep-0513/
-            fi
-            twine upload  --skip-existing dist/*
-            cd -
-        done <VERSIONS
+                if [ "$RUNNER_OS" = "macOS" ]; then
+                  python setup.py sdist bdist_wheel
+                else
+                  python setup.py sdist #no binary wheels on linux at the moment as we link against non PEP0513 .so
+                  #https://www.python.org/dev/peps/pep-0513/
+                fi
+                twine upload  --skip-existing dist/*
+                cd -
+              done <VERSIONS
         env:
           CONAN_CURRENT_PAGE: ${{matrix.cfg.compiler}}
-
-
-
-
