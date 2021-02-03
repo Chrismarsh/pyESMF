@@ -15,7 +15,7 @@ ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
 pkg_version = "4" # pyESMF sub-version
 pip_esmfpy_version = ESMF_VERSION
-
+CONAN_ESMF_VERSION = ESMF_VERSION
 
 if 'beta' in ESMF_VERSION:
   # this is a beta snapshop, normalize the name for pip deployed as per PEP440 
@@ -26,6 +26,8 @@ if 'beta' in ESMF_VERSION:
   rel_ver = ESMF_VERSION[:ESMF_VERSION.find('_')]  # get the primary release version eg 8.0.1
 
   pip_esmfpy_version = f'{rel_ver}.{pkg_version}b{beta_version}'
+  CONAN_ESMF_VERSION=f'{rel_ver}.{beta_version}-beta'
+
 else:
   pip_esmfpy_version = f'{ESMF_VERSION}.{pkg_version}'
 
@@ -96,7 +98,7 @@ setup(name='pyESMF',
       author='Chris Marsh',
       author_email='chris.marsh@usask.ca',
       url="https://github.com/Chrismarsh/pyESMF",
-      cmake_args=['-DESMF_VERSION:STRING='+ESMF_VERSION,build_opt],
+      cmake_args=['-DESMF_VERSION:STRING='+CONAN_ESMF_VERSION,build_opt],
       install_requires=['numpy'],
       setup_requires=setup_requires,
       packages=find_packages(),
