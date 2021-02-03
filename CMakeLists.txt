@@ -30,6 +30,7 @@ if(FORCE_BUILD)
     set(BUILD_POLICY "all")
 endif()
 
+message(STATUS "Targetting ESMF version = ${ESMF_VERSION}")
 
 conan_add_remote(NAME CHM
         URL https://api.bintray.com/conan/chrismarsh/CHM
