@@ -33,7 +33,7 @@ endif()
 message(STATUS "Targetting ESMF version = ${ESMF_VERSION}")
 
 conan_add_remote(NAME CHM
-        URL https://api.bintray.com/conan/chrismarsh/CHM
+        URL http://conan.snowcast.ca/artifactory/api/conan/chm
         )
 conan_cmake_run(CONANFILE conanfile.py
                 OPTIONS pyESMF:esmf_version=${ESMF_VERSION}
