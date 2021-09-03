@@ -93,7 +93,7 @@ setup(name='pyESMF',
       version=pip_esmfpy_version,
       description='Python bindings for ESMF',
       long_description="""
-      This is an unofficial packaging of the ESMF Python interface that is compaitible with pip and with virtual environments.
+      This is an unofficial packaging of the ESMF Python interface that is compatible with pip and with virtual environments.
       """,
       author='Chris Marsh',
       author_email='chris.marsh@usask.ca',
