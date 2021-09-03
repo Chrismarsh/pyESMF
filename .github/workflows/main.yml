@@ -111,10 +111,10 @@ jobs:
           ESMF_VERSION: ${{ matrix.esfm-version }}
           TEST_CONDA: ${{ matrix.test-conda }}
 
-      # - name: Install and test
-      #   run: |
-      #     export PATH="$pythonLocation:$PATH"
-      #     python -m pip install .
+      - name: Install and test
+        run: |
+          export PATH="$pythonLocation:$PATH"
+          python -m pip install .
 
       - name: Deploy
         run: |

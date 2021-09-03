@@ -1,0 +1,33 @@
+# $Id$
+
+# Input data for the RegridWeightGenCheck external demo
+
+# total number of test cases
+11
+
+# source_grid : destination_grid : method : options : RelErr : AreaErr
+
+# global grids with pole options
+ll2.5deg_grid.nc : T42_grid.nc      : bilinear : -p none    : 10E-04 : 10E-03 : 10E-16
+T42_grid.nc      : ll2.5deg_grid.nc : patch    : -p none -i : 10E-04 : 10E-03 : 10E-16
+ll1deg_grid.nc : ll2.5deg_grid.nc : conserve : --dst_type SCRIP : 10E-04 : 10E-04 : 10E-13
+T42_grid.nc : T42_grid.nc : neareststod : -i : 10E-16 : 10E-16 : 10E-16
+T42_grid.nc : T42_grid.nc : nearestdtos : -i : 10E-16 : 10E-16 : 10E-16
+
+# regional
+wr50a_090614.nc : wr50a_090614.nc : neareststod : --src_regional --dst_regional : 10E-16 : 10E-16 : 10E-16
+
+# hexagons
+mpas_uniform_10242.nc     : mpas_uniform_10242.nc : neareststod : --src_type ESMF --dst_type ESMF    : 10E-16 : 10E-16 : 10E-15
+
+# cubed sphere
+mpas_uniform_10242_dual.nc  : ne60np4_pentagons_100408.nc : conserve : --src_type ESMF : 10E-03 : 10E-02 : 10E-13
+
+# GRIDSPEC
+GRIDSPEC_ACCESS1.nc : SCRIP_1x1.nc : bilinear : -p none -i --src_type GRIDSPEC --src_missingvalue so : 10E-06 : 10E-05 : 10E-16
+
+# UGRID
+FVCOM_grid2d.nc : ll1deg_grid.nc : conserve : --src_type UGRID -r --src_meshname fvcom_mesh -i : 10E-04 : 10E-03 : 10E-14
+
+# ESMFMESH
+ne4np4-esmf.nc : ne4np4-esmf.nc : bilinear : --src_type ESMFMESH --dst_type ESMFMESH -i : 10E-16 : 10E-16 : 10E-16
