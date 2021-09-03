@@ -69,18 +69,18 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         if: ${{ matrix.test-conda  == 'conda-python' }}
         with:
-          activate-environment: mesher-env
+          activate-environment: pyesmf-env
           python-version: ${{ matrix.python-version }}
       
       - name: Install dependencies
         run: |
           export PATH="$pythonLocation:$PATH"
-          pip install conan --upgrade
-          pip install twine
-          pip install conan
-          pip install scikit-build>=0.10.0
-          pip install ninja
-          pip install wheel
+          python -m pip install conan --upgrade
+          python -m pip install twine
+          python -m pip install conan
+          python -m pip install scikit-build>=0.10.0
+          python -m pip install ninja
+          python -m pip install wheel
 
       - name: Install linux dependencies
         if: startsWith( matrix.cfg.os, 'ubuntu' )
