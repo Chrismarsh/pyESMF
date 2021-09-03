@@ -87,8 +87,6 @@ try:
 except SKBuildError:
     setup_requires.append('cmake')
 
-
-
 setup(name='pyESMF',
       version=pip_esmfpy_version,
       description='Python bindings for ESMF',
@@ -98,18 +96,12 @@ setup(name='pyESMF',
       author='Chris Marsh',
       author_email='chris.marsh@usask.ca',
       url="https://github.com/Chrismarsh/pyESMF",
-      cmake_args=['-DESMF_VERSION:STRING='+CONAN_ESMF_VERSION,build_opt],
+      cmake_args=['-DESMF_VERSION:STRING=' + CONAN_ESMF_VERSION, build_opt],
       install_requires=['numpy'],
       setup_requires=setup_requires,
       packages=find_packages(),
 
       python_requires='>=3.6',
-      cmdclass={'install':install,
-          'uninstall': uninstall}
-     )
-
-
-
-
-
-
+      cmdclass={'install': install,
+                'uninstall': uninstall}
+      )
