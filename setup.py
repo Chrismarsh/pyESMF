@@ -30,7 +30,7 @@ if 'beta' in ESMF_VERSION:
 
 else:
     pip_esmfpy_version = f'{ESMF_VERSION}.{pkg_version}'
-
+print(pip_esmfpy_version)
 force_build = os.environ.get('FORCE_BUILD', None)
 
 build_opt = '-DFORCE_BUILD:BOOL=OFF'
