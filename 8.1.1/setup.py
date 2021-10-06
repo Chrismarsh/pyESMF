@@ -13,7 +13,7 @@ import re
 
 ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
-pkg_version = "5"  # pyESMF sub-version
+pkg_version = "7"  # pyESMF sub-version
 pip_esmfpy_version = ESMF_VERSION
 CONAN_ESMF_VERSION = ESMF_VERSION
 
@@ -119,7 +119,7 @@ setup(name='pyESMF',
       author_email='chris.marsh@usask.ca',
       url="https://github.com/Chrismarsh/pyESMF",
       cmake_args=['-DESMF_VERSION:STRING=' + CONAN_ESMF_VERSION, build_opt],
-      install_requires=['numpy'],
+      install_requires=['numpy','ninja'],
       setup_requires=setup_requires,
       packages=find_packages(),
 
