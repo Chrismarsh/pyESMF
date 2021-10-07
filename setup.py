@@ -13,7 +13,7 @@ import re
 
 ESMF_VERSION = open('ESMF_VERSION', 'r').read().strip()
 
-pkg_version = "7"  # pyESMF sub-version
+pkg_version = "8"  # pyESMF sub-version
 pip_esmfpy_version = ESMF_VERSION
 CONAN_ESMF_VERSION = ESMF_VERSION
 
@@ -39,16 +39,16 @@ if force_build:
 
 
 class install(Install):
-    user_options = Install.user_options + [
-        ('ESMFMKFILE=', 'e', "Location of esmf.mk for the ESMF installation")
-    ]
-
-    def initialize_options(self):
-        install.initialize_options(self)
-        self.ESMFMKFILE = None
-
-    def finalize_options(self):
-        install.finalize_options(self)
+    # user_options = Install.user_options + [
+    #     ('ESMFMKFILE=', 'e', "Location of esmf.mk for the ESMF installation")
+    # ]
+    #
+    # def initialize_options(self):
+    #     install.initialize_options(self)
+    #     self.ESMFMKFILE = None
+    #
+    # def finalize_options(self):
+    #     install.finalize_options(self)
 
     def run(self):
         # This needs to happen before we call install so we can patch the file before it's copied out.
@@ -56,36 +56,36 @@ class install(Install):
 
         mkfile = ''
 
-        if self.ESMFMKFILE is None:
-            root = skbuild.constants.CMAKE_INSTALL_DIR()
+        # if self.ESMFMKFILE is None:
+        root = skbuild.constants.CMAKE_INSTALL_DIR()
 
-            gen_path = os.listdir(root + '/esmf/lib/libO')[0]
-            mkfile = root + '/esmf/lib/libO/' + gen_path + '/esmf.mk'
+        gen_path = os.listdir(root + '/esmf/lib/libO')[0]
+        mkfile = root + '/esmf/lib/libO/' + gen_path + '/esmf.mk'
 
-            with open(mkfile, 'r') as infile:
-                with open(mkfile + '.tmp', 'w') as outfile:
-                    content = infile.read()
+        with open(mkfile, 'r') as infile:
+            with open(mkfile + '.tmp', 'w') as outfile:
+                content = infile.read()
 
-                    content_new = re.sub(r'([=\-L\-I])(/.+?[0-9A-Za-z]{40}/)', r'\1' + self.install_base + '/esmf/',
-                                         content, flags=re.M)
-                    content_new = re.sub(r'(ESMF_INTERNAL_DIR=)(/.+?[0-9A-Za-z]{40})', r'\1' + self.install_base + '/esmf/',
-                                         content_new, flags=re.M)
-                    outfile.write(content_new)
+                content_new = re.sub(r'([=\-L\-I])(/.+?[0-9A-Za-z]{40}/)', r'\1' + self.install_base + '/esmf/',
+                                     content, flags=re.M)
+                content_new = re.sub(r'(ESMF_INTERNAL_DIR=)(/.+?[0-9A-Za-z]{40})', r'\1' + self.install_base + '/esmf/',
+                                     content_new, flags=re.M)
+                outfile.write(content_new)
 
-            os.rename(mkfile, mkfile + '.old')
-            os.rename(mkfile + '.tmp', mkfile)
+        os.rename(mkfile, mkfile + '.old')
+        os.rename(mkfile + '.tmp', mkfile)
 
 
-            # Do the main install
-            Install.run(self)
+        # Do the main install
+        Install.run(self)
 
         # write the esmf.mk path directly to the install folder
         with open(os.path.join(self.install_libbase, 'ESMF', 'interface', 'esmfmkfile.py'), 'w') as f:
             mkfile = self.install_base + '/esmf/lib/libO/' + gen_path + '/esmf.mk'
 
             # overwrite w/ the passed in mkfile option
-            if self.ESMFMKFILE is not None:
-                mkfile = self.ESMFMKFILE
+            # if self.ESMFMKFILE is not None:
+            #     mkfile = self.ESMFMKFILE
 
             f.write('ESMFMKFILE = "%s"' % mkfile)
 
