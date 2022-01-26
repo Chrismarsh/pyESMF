@@ -39,16 +39,17 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.7, 3.8]
-        test-conda: ["conda-python","sys-python"]
-        esfm-version: ["8.1.1"]
+        test-conda: ["sys-python"] #"conda-python",
+        esfm-version: ["8.1.1","8.2.1_beta_snapshot_03"]
 
         cfg:
-          - {os: "ubuntu-18.04", compiler: "gcc", version: 7}
-          - {os: "ubuntu-18.04", compiler: "gcc", version: 9}
-          - {os: "ubuntu-18.04", compiler: "gcc", version: 10}
-          - {os: "ubuntu-20.04", compiler: "gcc", version: 9}
-          - {os: "ubuntu-20.04", compiler: "gcc", version: 10}
-          - {os: "macos-10.15", compiler: "apple-clang", version: "12.0"}
+          - { os: "ubuntu-18.04", compiler: "gcc", version: 7 }
+          - { os: "ubuntu-18.04", compiler: "gcc", version: 9 }
+          - { os: "ubuntu-18.04", compiler: "gcc", version: 10 }
+          - { os: "ubuntu-20.04", compiler: "gcc", version: 9 }
+          - { os: "ubuntu-20.04", compiler: "gcc", version: 10 }
+          - { os: "macos-10.15",  compiler: "apple-clang", version: "12.0" }
+          - { os: "macos-11",     compiler: "apple-clang", version: "13.0" }
 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -96,6 +97,7 @@ jobs:
         with:
           CC: gcc-${{ matrix.cfg.version }}
           CXX: g++-${{ matrix.cfg.version }}
+          GFORTRAN_NAME: gfortran-${{ matrix.cfg.version }}
 
       - name: env macos
         if: startsWith( matrix.cfg.os, 'macos' )
@@ -109,6 +111,27 @@ jobs:
         with:
           ESMF_VERSION: ${{ matrix.esfm-version }}
           TEST_CONDA: ${{ matrix.test-conda }}
+
+      - name: Setup conan
+        if: ${{ matrix.use-conan == 'use-conan' }}
+        run: |
+          conan profile new default --detect
+          conan config install https://github.com/Chrismarsh/conan-config.git
+          
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            conan profile update settings.os.distro="$CFG_OS" default
+          else
+            VERSION=$(echo "$CFG_OS" | cut -d'-' -f2)
+            echo "MacOS $VERSION"
+            if [[ "$VERSION" == "11" ]]; 
+            then 
+              VERSION="11.0"
+            fi
+            conan profile update settings.os.version="$VERSION" default
+          fi
+          cat ~/.conan/profiles/default
+        env:
+          CFG_OS: ${{matrix.cfg.os}}
 
       - name: Deploy
         run: |

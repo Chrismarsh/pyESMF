@@ -1,0 +1,7 @@
+graft ESMF
+
+include CMakeLists.txt
+include conanfile.py
+include pyproject.toml
+include setup.py
+include ESMF_VERSION
