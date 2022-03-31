@@ -41,7 +41,7 @@ jobs:
       matrix:
         python-version: [3.7, 3.8]
         test-conda: ["sys-python"] #"conda-python",
-        esfm-version: ["8.1.1","8.2.1_beta_snapshot_03"]
+        esfm-version: ["8.1.1","8.2.1_beta_snapshot_03","8.3.0b10"]
 
         cfg:
           - { os: "ubuntu-18.04", compiler: "gcc", version: 7 }

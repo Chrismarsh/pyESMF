@@ -5,7 +5,11 @@ ESMF_VERSION=$1
 
 rm -rf ${ESMF_VERSION}
 mkdir $ESMF_VERSION
-git clone --depth 1 --branch ESMF_${ESMF_VERSION//./_} https://github.com/esmf-org/esmf.git $ESMF_VERSION
+
+# <8.3 naming
+#git clone --depth 1 --branch ESMF_${ESMF_VERSION//./_} https://github.com/esmf-org/esmf.git $ESMF_VERSION
+
+git clone --depth 1 --branch v${ESMF_VERSION} https://github.com/esmf-org/esmf.git $ESMF_VERSION
 
 cd ${ESMF_VERSION} 
 
